@@ -1,0 +1,32 @@
+resources:
+  jobs:
+    read_table_job:
+      name : read_table_job
+    
+      tasks:
+        - task_key: read_table_task
+          spark_python_task:
+            python_file: ../src/read_table/main.py
+            parameters: ["--table", "{{job.parameters.default_table}}"]
+          environment_key: default
+
+        - task_key: count_rows_task
+          depends_on:
+            - task_key: read_table_task
+          spark_python_task:
+            python_file: ../src/count_rows/main.py
+            parameters: ["--table", "{{job.parameters.default_table}}"]
+          environment_key: default
+
+    
+      parameters:
+        - name: default_table
+          default: "default.source_table"
+        
+      environments:
+        - environment_key: default
+
+          # Full documentation of this spec can be found at:
+          # https://docs.databricks.com/api/workspace/jobs/create#environments-spec
+          spec:
+            environment_version: '4'
