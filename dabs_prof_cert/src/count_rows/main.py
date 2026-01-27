@@ -1,8 +1,7 @@
 import argparse
 import sys
-import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from ..helpers import read_table
+sys.path.append("../../src")
+from helpers import read_table
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Read a table and display its contents.")
