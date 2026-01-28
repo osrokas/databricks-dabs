@@ -62,8 +62,6 @@ def load_fixture(spark: SparkSession):
 
 def _enable_fallback_compute():
     """Enable serverless compute if no compute is specified."""
-    if os.getenv("CI") == "true":
-        return
     conf = WorkspaceClient().config
     if conf.serverless_compute_id or conf.cluster_id or os.environ.get("SPARK_REMOTE"):
         return
