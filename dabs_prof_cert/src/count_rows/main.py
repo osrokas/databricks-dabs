@@ -1,7 +1,11 @@
 import argparse
 import sys
 sys.path.append("../../src")
+<<<<<<< HEAD
 from helpers import read_table, row_count
+=======
+from helpers import read_table
+>>>>>>> 077ddd3491fdfa872d18e9cfb452bdc99a1ec8a2
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Read a table and display its contents.")
