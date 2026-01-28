@@ -1,28 +1,20 @@
-name: Create PR from Dev to Master
+# name: Create PR from Dev to Master
 
-on:
-  workflow_call:
-    inputs:
-      environment:
-        required: true
-        type: string
+# on:
+#   workflow_call:
+#     inputs:
+#       environment:
+#         required: true
+#         type: string
 
-permissions:
-  contents: write
-  pull-requests: write
 
-jobs:
-  create-pull-request:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7  # Updated to latest v7
-        with:
-          branch: dev
-          base: master
-          title: "Automated PR: ${{ inputs.environment }} -> Master"
-          body: |
-            This is an automated pull request from `dev` to `master` triggered for environment `${{ inputs.environment }}`.
+# jobs:
+#     create-pull-request:
+#         name: 'Create Pull Request from Dev to Master'
+#         needs: deploy
+#         runs-on: ubuntu-latest
+#         steps:
+#         - name: create pull request
+#         run: gh pr create -B dev -H master --title 'Merge dev into master' --body 'Created by Github action'
+#         env:
+#             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

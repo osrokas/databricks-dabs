@@ -39,8 +39,11 @@ jobs:
         run: databricks bundle deploy -t dev
 
   create-pull-request:
+    name: 'Create Pull Request from Dev to Master'
     needs: deploy
-    uses: ./.github/workflows/pull-request.yml
-    with:
-      environment: dev
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+    - name: create pull request
+      run: gh pr create -B dev -H master --title 'Merge dev into master' --body 'Created by Github action'
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
