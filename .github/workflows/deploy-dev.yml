@@ -33,3 +33,9 @@ jobs:
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
         run: databricks bundle deploy -t dev
+
+  create-pull-request:
+    needs: deploy
+    uses: ./.github/workflows/pull-request.yml
+    with:
+      environment: dev
