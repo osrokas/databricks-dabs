@@ -8,20 +8,25 @@ on:
         type: string
 
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   create-pull-request:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout repo
         uses: actions/checkout@v4
-        
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
         with:
-          branch: ${{ inputs.environment }}
-          base: master
-          title: "Automated PR: ${{ inputs.environment }} to Master"
-          body: |
-            This is an automated pull request from `${{ inputs.environment }}` to `master`.
-            
-            Please review the changes before merging.
+          fetch-depth: 0
+
+      - name: Create PR
+        run: |
+          gh pr create \
+            --head "${{ inputs.environment }}" \
+            --base master \
+            --title "Automated PR: ${{ inputs.environment }} → master" \
+            --body "This is an automated pull request from \`${{ inputs.environment }}\` to \`master\`."
+        env:
+          GH_TOKEN: ${{ github.token }}
