@@ -39,3 +39,4 @@ jobs:
     uses: ./.github/workflows/pull-request.yml
     with:
       environment: dev
+    secrets: inherit
