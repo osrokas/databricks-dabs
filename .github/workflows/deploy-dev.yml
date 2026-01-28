@@ -42,8 +42,14 @@ jobs:
     name: 'Create Pull Request from Dev to Master'
     needs: deploy
     runs-on: ubuntu-latest
+
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0   # important for branches
+
     - name: create pull request
       run: gh pr create -B dev -H master --title 'Merge dev into master' --body 'Created by Github action'
       env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
