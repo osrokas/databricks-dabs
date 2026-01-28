@@ -1,33 +1,37 @@
-# name: deploy-dev
+name: deploy-dev
 
-# on:
-#   push:
-#     branches:
-#       - dev
+on:
+  push:
+    branches:
+      - dev
 
-# jobs:
-#   testing:
-#     uses: ./.github/workflows/testing.yml
-#     with:
-#       environment: 'dev'
+jobs:
+  testing:
+    uses: ./.github/workflows/testing.yml
+    with:
+      environment: 'dev'
+    secrets:
+      databricks-host: ${{ secrets.DATABRICKS_HOST }}
+      databricks-token: ${{ secrets.DATABRICKS_TOKEN }}
+    
 
-#   deploy:
-#     needs: testing
-#     name: 'Deploy bundle'
+  deploy:
+    needs: testing
+    name: 'Deploy bundle'
 
-#     runs-on: ubuntu-latest
-#     defaults:
-#       run:
-#         working-directory: ./dabs_prof_cert
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./dabs_prof_cert
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-#       - name: Databricks CLI Setup
-#         uses: databricks/setup-cli@v0.285.0
+      - name: Databricks CLI Setup
+        uses: databricks/setup-cli@v0.285.0
 
-#       - name: Deploy bundle
-#         env:
-#           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-#           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-#         run: databricks bundle deploy -t dev
+      - name: Deploy bundle
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+        run: databricks bundle deploy -t dev
