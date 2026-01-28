@@ -30,11 +30,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
-      # set up databricks authentication
-      - name: Databricks CLI Setup
-        uses: databricks/setup-cli@v0.285.0
-
+          
       - name: Run tests
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
