@@ -6,14 +6,7 @@ on:
       environment:
         required: true
         type: string
-    secrets:
-      databricks-host:
-        required: true
-      databricks-token:
-        required: true
-        
-env:
-  CI: true
+
 
 jobs:
   test:

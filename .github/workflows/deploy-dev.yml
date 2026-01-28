@@ -9,10 +9,8 @@ jobs:
   testing:
     uses: ./.github/workflows/testing.yml
     with:
-      environment: 'dev'
-    secrets:
-      databricks-host: ${{ secrets.DATABRICKS_HOST }}
-      databricks-token: ${{ secrets.DATABRICKS_TOKEN }}
+      environment: dev
+    secrets: inherit
     
 
   deploy:
