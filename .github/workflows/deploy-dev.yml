@@ -12,6 +12,7 @@ jobs:
       environment: 'dev'
 
   deploy:
+    needs: testing
     name: 'Deploy bundle'
 
     runs-on: ubuntu-latest
