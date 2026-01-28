@@ -1,6 +1,10 @@
-name: Deploy to Dev
+name: deploy-dev
 
 on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
   push:
     branches:
       - dev
@@ -8,6 +12,7 @@ on:
 jobs:
   deploy:
     name: 'Deploy bundle'
+    if : ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     defaults:
       run:

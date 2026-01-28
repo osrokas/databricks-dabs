@@ -8,3 +8,7 @@ def read_table(table_name: str) -> DataFrame:
     df = spark.table(table_name)
     
     return df
+
+def row_count(df: DataFrame) -> int:
+    """Return the number of rows in the DataFrame."""
+    return df.count()
